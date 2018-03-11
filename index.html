@@ -1,0 +1,250 @@
+<!DOCTYPE HTML> 
+<html>
+	<head>
+        <title>Fallout.DB</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale-1">
+        <meta http-equiv="Content-Language" content="th">
+        <meta name='description' content="Fallout Database system">
+        <meta name='keywords' content="Fallout DataBase"> 
+        <meta name="category" content="Commands HTML5, Learn, Movies">
+        <meta name="author" content="Namix Zatomi">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+	<style>
+		body {
+			background-image: url("images/bg.jpg");
+			background-attachment: fixed;
+            overflow-x: hidden;
+        }
+        .a {
+            color: azure;
+        }
+        .a:hover {
+            text-decoration: none;
+            color: darkgrey;
+        }
+    </style>
+    <body onload="search()">
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span> 
+                    </button>
+                    <a class="navbar-brand" href="#">
+                        <img src="images/logoge.png" alt="Fallout DB" style="width: 80px">
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <div class="navbar-form navbar-left">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" onclick="search()"><i class="glyphicon glyphicon-search"></i></button>
+                            </div>
+                            <input type="text" name="search" id="search" onkeyup="search()" class="form-control" placeholder="Search">
+                        </div>
+                        <button class="btn btn-info" data-toggle="modal" data-target="#about">
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                        </button>
+                    </div>
+                    <div name="login" id="login"></div>
+                </div>
+            </div>
+        </nav>
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <br><br><br>
+                <div class="list-menu" id="listdata"></div>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+
+        <!-- About -->
+        <div class="modal fade" id="about" role="dialog">
+            <div class="modal-dialog">
+                <!-- Content here -->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">About this web application</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>This web application was create for education about API AJAX and REST.</p>
+                        <p>New Design and Code: <a href="https://facebook.com/IamNamix" target="_blank">Namix Zatomi</a></p>
+                        <p>Original code and content: <a href="http://tm.dru.ac.th" target="_blank">Asst.Prof.Dr.Taskeow Srisod</a></p>
+						<p>All content and source code available on <a href="https://github.com/" target="_blank">Github</a></p>
+						<p>To login use: "fallout" both username and password</p>
+                        <br>
+                        <p>Copyright Infomation</p>
+                        <p class="text-justify" style="font-size: 11px">
+                            © 2015 Bethesda Softworks LLC, a ZeniMax Media company. Bethesda, Bethesda Softworks, Bethesda Game Studios, ZeniMax and related logos are registered
+                            trademarks or trademarks of ZeniMax Media Inc. in the U.S. and/or other countries. Fallout, Vault Boy, and related logos are registered trademarks or trademarks of
+                            Bethesda Softworks LLC in the U.S. and/or other countries. All other trademarks or trade names are the baseiderty of their respective owners. All Rights Reserved.
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+		function logout(){
+			sessionStorage.removeItem("login");
+			checklogin();
+			search(0);
+		}
+		function checklogin(){
+			if(sessionStorage.getItem("login")=="1") {
+				var login = '<div class="navbar-form navbar-right"><button class="btn btn-success" onclick="f_add()"><span class="glyphicon glyphicon-plus"></span> Add Data</button><button class="btn btn-danger" onclick="logout()"><span class="glyphicon glyphicon-log-out"></span>  Logout</button></div>';
+			}else{
+				var login = "<div class='navbar-form navbar-right'><div class='input-group'><input type='text' class='form-control' name='user' id='user' placeholder='Username'></div><div class='input-group'><input type='password' class='form-control' name='pass' id='pass' placeholder='Password'></div><button class='btn' onclick='f_login()'><span class='glyphicon glyphicon-log-in'></span> Login</button></div>";
+			}
+			$('#login').html(login);
+			
+		}
+		
+		function f_login(){
+			var user = document.getElementById('user').value;
+			var pass = document.getElementById('pass').value;
+			$(function(){
+				$.ajax({
+					url : window.location.href + "/api/_login.php?user=" + user + "&pass=" + pass,
+					data : "",
+					type : "POST",
+					success : function(result){
+						var myjson = $.parseJSON(result);
+						$.each(myjson, function(index , val){
+							if(index >= 0){
+								sessionStorage.setItem("login", "1");
+								sessionStorage.setItem("user", user);
+							}
+							checklogin();
+							search(0);
+						});
+					}
+				});	
+			});
+		}
+		
+		function f_add(){
+			checklogin();
+			$.ajax({
+				url : window.location.href + "/api/_append.php",
+				data : "",
+				type : "POST",
+					
+				success : function(result){
+					$('#listdata').html(result);
+				}
+			});
+			
+		}
+		
+		function add(){
+			var pic_name = document.getElementById('pic_name').value;
+			var gal = document.getElementById('gal').value;
+			var file = document.getElementById('file').value;
+			$(function(){
+				$.ajax({
+					url : window.location.href + "/api/_append.php?pic_name=" + pic_name + "&file="+ file +"&gal=" + gal + "&user=" + sessionStorage.getItem("user"),
+					data : "",
+					type : "POST",
+					success : function(result){
+						search();
+					}
+				});			
+			});
+		}
+		
+		function delete_img(id){
+			var r = confirm("Delete?");
+			if (r == true) {
+				$(function(){
+					$.ajax({
+						url : window.location.href + "/api/_delete.php?id=" + id ,
+						data : "",
+						type : "POST",
+						success : function(result){
+							search(0);
+						}
+					});			
+				});
+			}
+		}
+		
+		function f_edit(id){
+			checklogin();
+			$(function(){
+				$.ajax({
+					url : window.location.href + "/api/_fedit.php?id=" + id ,
+					data : "",
+					type : "POST",
+					success : function(result){
+						$('#listdata').html(result);
+					}
+				});			
+			});
+			
+		}
+		
+		function edit(){
+			var id = document.getElementById('id').value;
+			var name = document.getElementById('name').value;
+			var name_e = document.getElementById('name_e').value;
+			var role = document.getElementById('role').value;
+			var dps = document.getElementById('dps').value;
+			var rof = document.getElementById('rof').value;
+			var ammo = document.getElementById('ammo').value;
+			var baseid = document.getElementById('baseid').value;
+			var pic = document.getElementById('pic').value;
+			var mix = id+","+name+","+name_e+","+role+","+dps+","+rof+","+ammo+","+baseid+","+pic;
+			$(function(){
+				$.ajax({
+					url : window.location.href + "/api/_update.php?mix=" + mix ,
+					data : "",
+					type : "POST",
+					success : function(result){
+						search();
+					}
+				});			
+			});
+		}
+		
+		function search(){
+			checklogin();
+			$(function(){
+				var search = document.getElementById('search').value;
+				$.ajax({
+					url : window.location.href + "/api/_display.php?search="+ search ,
+					data : "",
+					type : "POST",
+					success : function(result){
+						var myjson = $.parseJSON(result);
+						var listview_header = '<div class="list-menu">';
+						var listview_footer = '</div>';
+						var listview_data = '';
+						$.each(myjson, function(index , val){
+							
+							if(sessionStorage.getItem("login")=="1"){
+								listview_data += '<div class="panel panel-default"><div class="panel-body"><table align="1"><tr><td width="30%"><img src="images/gundb/'+ val.pic +'.png" width="80%"></td><td><b>Name : </b>  '+ val.name +' <br><b>Role : </b>  '+ val.role +' <br><b>Damage per Second : </b>  '+ val.dps +' <br><b>Rate of Fire : </b>  '+ val.rof +'<br><b>Ammo</b> : '+ val.ammo +'<br><b>Base ID</b> : '+ val.baseid +'</td></tr></table><br><div class="text-right"><button class="btn btn-info" onclick="f_edit('+ val.id +')"><span class="glyphicon glyphicon-edit"></span> Edit</button> <button class="btn btn-danger" onclick="delete_img('+ val.id +')"><span class="glyphicon glyphicon-trash"></span> Delete</button></div></div></div>';
+							}else{
+								listview_data += '<div class="panel panel-default"><div class="panel-body"><table align="1"><tr><td width="30%"><img src="images/gundb/'+ val.pic +'.png" width="80%"></td><td><b>Name : </b>  '+ val.name +' <br><b>Role : </b>  '+ val.role +' <br><b>Damage per Second : </b>  '+ val.dps +' <br><b>Rate of Fire : </b>  '+ val.rof +'<br><b>Ammo</b> : '+ val.ammo +'<br><b>Base ID</b> : '+ val.baseid +'</td></tr></table></div></div>';						
+							}
+						});
+						var tap = '<div class="text-center"><ul class="pager"><li><a href="#">Previous</a></li> <li><a href="#">Next</a></li></ul></div>';
+						var head = '<center><img src="images/logo.jpg" alt="Weaponery Database" style="width: 50%"></center><br><br>';
+						$('#listdata').html(head+listview_header+listview_data+listview_footer);
+					}
+				});	
+			});
+		}
+	</script>
+</html>
