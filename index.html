@@ -1,14 +1,14 @@
 <!DOCTYPE HTML> 
 <html>
 	<head>
-        <title>Fallout.DB</title>
+        <title>Game.DB</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale-1">
-        <meta http-equiv="Content-Language" content="th">
-        <meta name='description' content="Fallout Database system">
-        <meta name='keywords' content="Fallout DataBase"> 
-        <meta name="category" content="Commands HTML5, Learn, Movies">
-        <meta name="author" content="Namix Zatomi">
+        <meta http-equiv="Content-Language" content="en">
+        <meta name='description' content="Game Item database">
+        <meta name='keywords' content="Game DataBase"> 
+        <meta name="category" content="Commands HTML5, Learn">
+        <meta name="author" content="lzy3me">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -116,7 +116,7 @@
 			var pass = document.getElementById('pass').value;
 			$(function(){
 				$.ajax({
-					url : window.location.href + "/api/_login.php?user=" + user + "&pass=" + pass,
+					url : window.location.href + "api/_login.php?user=" + user + "&pass=" + pass,
 					data : "",
 					type : "POST",
 					success : function(result){
@@ -137,7 +137,7 @@
 		function f_add(){
 			checklogin();
 			$.ajax({
-				url : window.location.href + "/api/_append.php",
+				url : window.location.href + "api/_append.php",
 				data : "",
 				type : "POST",
 					
@@ -154,7 +154,7 @@
 			var file = document.getElementById('file').value;
 			$(function(){
 				$.ajax({
-					url : window.location.href + "/api/_append.php?pic_name=" + pic_name + "&file="+ file +"&gal=" + gal + "&user=" + sessionStorage.getItem("user"),
+					url : window.location.href + "api/_append.php?pic_name=" + pic_name + "&file="+ file +"&gal=" + gal + "&user=" + sessionStorage.getItem("user"),
 					data : "",
 					type : "POST",
 					success : function(result){
@@ -169,7 +169,7 @@
 			if (r == true) {
 				$(function(){
 					$.ajax({
-						url : window.location.href + "/api/_delete.php?id=" + id ,
+						url : window.location.href + "api/_delete.php?id=" + id ,
 						data : "",
 						type : "POST",
 						success : function(result){
@@ -184,7 +184,7 @@
 			checklogin();
 			$(function(){
 				$.ajax({
-					url : window.location.href + "/api/_fedit.php?id=" + id ,
+					url : window.location.href + "api/_fedit.php?id=" + id ,
 					data : "",
 					type : "POST",
 					success : function(result){
@@ -208,7 +208,7 @@
 			var mix = id+","+name+","+name_e+","+role+","+dps+","+rof+","+ammo+","+baseid+","+pic;
 			$(function(){
 				$.ajax({
-					url : window.location.href + "/api/_update.php?mix=" + mix ,
+					url : window.location.href + "api/_update.php?mix=" + mix ,
 					data : "",
 					type : "POST",
 					success : function(result){
@@ -223,7 +223,7 @@
 			$(function(){
 				var search = document.getElementById('search').value;
 				$.ajax({
-					url : window.location.href + "/api/_display.php?search="+ search ,
+					url : window.location.href + "api/_display.php?search="+ search ,
 					data : "",
 					type : "POST",
 					success : function(result){
