@@ -1,6 +1,6 @@
 # gameDB API Project
 
-gameDB API Project (former name __Ajax_Api_Rest-FalloutDB__) is my one of homework from Web Programming subject. The web application was create for education about Database, Rest API and JQuery Ajax.
+gameDB API Project (former name __Ajax_Api_Rest-FalloutDB__) is my one of homework from Web Programming subject. The web application was create for education about Database, Rest API and JQuery Ajax. Original code and content: [Asst.Prof.Dr.Taskeow Srisod](http://tm.dru.ac.th)
 
 ## Appilcation Stack
 
@@ -21,6 +21,7 @@ gameDB API Project (former name __Ajax_Api_Rest-FalloutDB__) is my one of homewo
 
 ## Owner and Permission
 
-- Create by : [lzy3me](https://github.com/lzy3me)
+- Create by : [Asst.Prof.Dr.Taskeow Srisod](http://tm.dru.ac.th)
+- Modify By : [lzy3me](https://github.com/lzy3me)
 - Create At : November 2018
-- Do whatever you want that isn't against the [LICENSE](LICENSE)
+- Do whatever you want
