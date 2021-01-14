@@ -14,11 +14,6 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	</head>
 	<style>
-		body {
-			background-image: url("images/bg.jpg");
-			background-attachment: fixed;
-            overflow-x: hidden;
-        }
         .a {
             color: azure;
         }
@@ -75,11 +70,11 @@
                         <h4 class="modal-title">About this web application</h4>
                     </div>
                     <div class="modal-body">
-                        <p>This web application was create for education about API AJAX and REST.</p>
-                        <p>New Design and Code: <a href="https://facebook.com/IamNamix" target="_blank">Namix Zatomi</a></p>
+                        <p>This web application was create for education about Database, Rest API and JQuery Ajax.</p>
+                        <p>Modify by: <a href="https://github.com/lzy3me" target="_blank">lzy3me</a></p>
                         <p>Original code and content: <a href="http://tm.dru.ac.th" target="_blank">Asst.Prof.Dr.Taskeow Srisod</a></p>
-						<p>All content and source code available on <a href="https://github.com/" target="_blank">Github</a></p>
-						<p>To login use: "fallout" both username and password</p>
+						<p>All content and source code available on <a href="https://github.com/lzy3me/gamedb-api-project" target="_blank">Github</a></p>
+						<p>To login use: "admin" both username and password</p>
                         <br>
                         <p>Copyright Infomation</p>
                         <p class="text-justify" style="font-size: 11px">
@@ -101,6 +96,7 @@
 			checklogin();
 			search(0);
 		}
+
 		function checklogin(){
 			if(sessionStorage.getItem("login")=="1") {
 				var login = '<div class="navbar-form navbar-right"><button class="btn btn-success" onclick="f_add()"><span class="glyphicon glyphicon-plus"></span> Add Data</button><button class="btn btn-danger" onclick="logout()"><span class="glyphicon glyphicon-log-out"></span>  Logout</button></div>';

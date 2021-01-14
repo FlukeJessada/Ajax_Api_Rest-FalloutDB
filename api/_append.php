@@ -11,7 +11,7 @@
 			<div class='col-sm-3'><label for='pic'>Image : </label></div><div class='col-sm-9'><input id='file' type='file' class='form-control' name='pic' placeholder='Image'></div>
 			<div class='row'>
 			   <div class='col-6 col-md-offset-6'><input name="btnSubmit" type="submit" class="btn btn-success" value="Add">
-			   <input name="btnCancel" type="button" class="btn btn btn-danger " onClick="location.href='http://127.0.0.1/fallout/'" value="Cancel"></div>
+			   <input name="btnCancel" type="button" class="btn btn btn-danger " onClick="location.href=window.location.href" value="Cancel"></div>
 			</div>
 		</form>
 	</div>

@@ -1,10 +1,6 @@
 # gameDB API Project
 
-gameDB API Project (former name __Ajax_Api_Rest-FalloutDB__) is my one of Mini-Project from Web Programming subject.
-
-## Revisiting
-
-todo
+gameDB API Project (former name __Ajax_Api_Rest-FalloutDB__) is my one of homework from Web Programming subject. The web application was create for education about Database, Rest API and JQuery Ajax.
 
 ## Appilcation Stack
 
@@ -21,6 +17,7 @@ todo
 ## Issue and Bug
 
 - went logout on add data page, page didn't change
+- Update.php didn't change page if user not logged in and add data
 
 ## Owner and Permission
 
